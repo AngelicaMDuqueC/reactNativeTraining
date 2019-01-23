@@ -1,17 +1,17 @@
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
-import WelcomeScreen from '../Screens/WelcomeScreen';
-import StarwarsScreen from '../Screens/StarwarsScreen';
-import CatScreen from '../Screens/CatScreen';
+import { createStackNavigator, createAppContainer } from 'react-navigation'
+import MainNavigation from './MainNavigation'
+import CatScreen from '../Screens/CatScreen'
 
-const RootNavigation = createBottomTabNavigator(
+const RootNavigation = createStackNavigator(
   {
-    StarwarsScreen: { screen: StarwarsScreen },
-    WelcomeScreen: { screen: WelcomeScreen },
-    CatScreen: { screen: CatScreen }
+    Main: { screen: MainNavigation },
+    CatModal: { screen: CatScreen },
   },
   {
-    initialRouteName: 'WelcomeScreen'
+    initialRouteName: 'Main',
+    mode: 'modal',
+    headerMode: 'none',
   }
-);
+)
 
-export default createAppContainer(RootNavigation);
+export default createAppContainer(RootNavigation)
