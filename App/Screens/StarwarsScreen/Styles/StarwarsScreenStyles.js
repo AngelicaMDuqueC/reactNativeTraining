@@ -12,4 +12,8 @@ export default StyleSheet.create({
     color: '#ffffff',
     marginBottom: 5,
   },
+  button: {
+    color: '#ffffff',
+    fontSize: 20,
+  },
 })

@@ -6,11 +6,12 @@ import styles from './Styles/ScreenStyles'
 export default class Screen extends Component {
   static propTypes = {
     backgroundColor: PropTypes.string,
-    align: PropTypes.string,
+    align: PropTypes.oneOf(['top', 'center', 'bottom']),
   }
 
   static defaultProps = {
     align: 'center',
+    backgroundColor: '#F5FCFF',
   }
 
   render() {
