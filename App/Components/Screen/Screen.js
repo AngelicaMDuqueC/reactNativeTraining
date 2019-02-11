@@ -6,11 +6,9 @@ import styles from './Styles/ScreenStyles'
 export default class Screen extends Component {
   static propTypes = {
     backgroundColor: PropTypes.string,
-    align: PropTypes.oneOf(['top', 'center', 'bottom']),
   }
 
   static defaultProps = {
-    align: 'center',
     backgroundColor: '#F5FCFF',
   }
 
@@ -19,7 +17,7 @@ export default class Screen extends Component {
 
     return (
       <SafeAreaView style={[styles.root, { backgroundColor }]}>
-        <ScrollView contentContainerStyle={[styles.container, styles[align]]}>
+        <ScrollView contentContainerStyle={styles.container}>
           {children}
         </ScrollView>
       </SafeAreaView>

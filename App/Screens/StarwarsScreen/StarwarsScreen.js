@@ -37,7 +37,7 @@ function createStarwarsStream(id) {
       person => {
         return ajax(person.homeworld).pipe(
           pluck('response'),
-          startWith({ name: 'loading...' }),
+          startWith({ name: '...' }),
           ajaxCatchError
         )
       },
@@ -56,8 +56,8 @@ export default class StarwarsScreen extends Component {
     super(props)
 
     this.state = {
-      person: { name: 'Loading' },
-      planet: {},
+      person: { name: '...' },
+      planet: { name: '...' },
       count: 0,
     }
 
@@ -74,17 +74,11 @@ export default class StarwarsScreen extends Component {
   }
 
   componentDidMount() {
-    // this.fetchPeople(1).catch(err => {
-    //   console.warn(err)
-    // })
-
     this.count$.subscribe(count => {
-      console.log(count)
       this.setState({ count })
     })
 
     this.starwarsStream$.subscribe(data => {
-      console.log(data)
       this.setState(data)
     })
   }
@@ -125,13 +119,20 @@ export default class StarwarsScreen extends Component {
 
     return (
       <Screen backgroundColor="#333333" align="center">
-        <Text style={styles.welcome}>Starwars Screen</Text>
-        <Text style={styles.instructions}>{person.name}</Text>
-        <Text style={styles.instructions}>{planet.name}</Text>
-        <TouchableOpacity onPress={this.onPress}>
-          <Text style={styles.button}>Touch Here</Text>
-        </TouchableOpacity>
-        <Text style={styles.button}>{this.state.count}</Text>
+        <View style={[styles.section, styles.titleSection]}>
+          <View style={styles.logo}>
+            <Text style={styles.textLogo}>Star</Text>
+            <Text style={styles.textLogo}>Wars</Text>
+          </View>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.name}>{person.name}</Text>
+          <Text style={styles.name}>{planet.name}</Text>
+          <TouchableOpacity onPress={this.onPress}>
+            <Text style={styles.button}>Touch Here</Text>
+          </TouchableOpacity>
+          <Text style={styles.button}>{this.state.count}</Text>
+        </View>
       </Screen>
     )
   }

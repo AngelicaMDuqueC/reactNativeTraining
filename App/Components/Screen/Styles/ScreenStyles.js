@@ -6,15 +6,5 @@ export default StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    minHeight: '100%',
-  },
-  top: {
-    justifyContent: 'flex-start',
-  },
-  center: {
-    justifyContent: 'center',
-  },
-  bottom: {
-    justifyContent: 'flex-end',
   },
 })
