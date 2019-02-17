@@ -150,10 +150,12 @@ export default class StarwarsScreen extends Component {
           </View>
         </View>
         <View style={[styles.section, styles.contentSection]}>
-          <Image
-            style={styles.imagePerson}
-            source={this.getImageFrom(StarwarsImages.person, person.name)}
-          />
+          <View style={styles.imageRound}>
+            <Image
+              style={styles.imagePerson}
+              source={this.getImageFrom(StarwarsImages.person, person.name)}
+            />
+          </View>
           <Text style={styles.name}>{person.name}</Text>
           <Text style={styles.name}>{planet.name}</Text>
           <View style={styles.buttons}>

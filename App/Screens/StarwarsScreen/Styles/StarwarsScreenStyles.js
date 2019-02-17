@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native'
 
+const imageWidth = 100
+
 export default StyleSheet.create({
   section: {
     paddingHorizontal: 30,
@@ -64,8 +66,12 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 5,
   },
+  imageRound: {
+    borderRadius: imageWidth,
+    overflow: 'hidden',
+  },
   imagePerson: {
-    width: 100,
-    height: 100,
+    width: imageWidth,
+    height: imageWidth,
   },
 })
