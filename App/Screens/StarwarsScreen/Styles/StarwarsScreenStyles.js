@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
   section: {
     paddingHorizontal: 30,
-    paddingVertical: 30,
+    paddingVertical: 20,
     width: '100%',
   },
   titleSection: {
-    paddingVertical: 60,
+    paddingTop: 60,
   },
   title: {
     fontSize: 40,
@@ -27,10 +27,8 @@ export default StyleSheet.create({
     height: '100%',
     resizeMode: 'contain',
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#ffffff',
-    marginBottom: 5,
+  contentSection: {
+    alignItems: 'center',
   },
   linearGradient: {
     flex: 1,
@@ -49,5 +47,25 @@ export default StyleSheet.create({
     fontFamily: 'STARWARS',
     fontSize: 24,
     color: '#ffffff',
+    paddingVertical: 5,
+  },
+  buttons: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 20,
+  },
+  button: {
+    width: '30%',
+  },
+  linearGradient: {
+    flex: 1,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  imagePerson: {
+    width: 100,
+    height: 100,
   },
 })
