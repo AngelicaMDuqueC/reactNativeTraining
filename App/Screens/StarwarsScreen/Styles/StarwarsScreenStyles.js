@@ -69,6 +69,7 @@ export default StyleSheet.create({
   imageRound: {
     borderRadius: imageWidth,
     overflow: 'hidden',
+    marginBottom: 20,
   },
   imagePerson: {
     width: imageWidth,
