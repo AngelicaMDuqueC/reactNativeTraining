@@ -121,8 +121,10 @@ export default class StarwarsScreen extends Component {
       <Screen backgroundColor="#333333" align="center">
         <View style={[styles.section, styles.titleSection]}>
           <View style={styles.logo}>
-            <Text style={styles.textLogo}>Star</Text>
-            <Text style={styles.textLogo}>Wars</Text>
+            <Image
+              style={styles.textLogo}
+              source={require('../../../assets/images/Star_Wars_Logo.png')}
+            />
           </View>
         </View>
         <View style={styles.section}>
