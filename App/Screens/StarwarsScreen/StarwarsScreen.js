@@ -10,8 +10,18 @@ import {
 import styles from './Styles/StarwarsScreenStyles'
 import Screen from '../../Components/Screen'
 import { ajax } from 'rxjs/ajax'
-import { EMPTY, Subject } from 'rxjs'
-import { switchMap, catchError, pluck, startWith, scan } from 'rxjs/operators'
+import { EMPTY, Subject, merge, Subscriber } from 'rxjs'
+import {
+  switchMap,
+  catchError,
+  pluck,
+  startWith,
+  scan,
+  mapTo,
+} from 'rxjs/operators'
+import LinearGradient from 'react-native-linear-gradient'
+import filterPrevious from '../../Lib/RxCustomOperators/filterPrevious'
+import StarwarsImages from '../../Constants/StarwarsImages'
 
 function createHandler() {
   const handler$ = new Subject()
@@ -61,12 +71,20 @@ export default class StarwarsScreen extends Component {
       count: 0,
     }
 
-    const [onPress$, onPress] = createHandler()
-    this.count$ = onPress$.pipe(
-      startWith(null),
-      scan((acc, event) => acc + 1, 0)
+    const [onPressUp$, onPressUp] = createHandler()
+    const [onPressDown$, onPressDown] = createHandler()
+
+    const oneUp$ = onPressUp$.pipe(mapTo(1))
+    const oneDown$ = onPressDown$.pipe(mapTo(-1))
+
+    this.count$ = merge(oneUp$, oneDown$).pipe(
+      startWith(1),
+      scan((acc, event) => acc + event || 1, 0),
+      filterPrevious((prevCount, count) => prevCount !== count)
     )
-    this.onPress = onPress
+
+    this.onPressUp = onPressUp
+    this.onPressDown = onPressDown
 
     this.starwarsStream$ = this.count$.pipe(
       switchMap(count => createStarwarsStream(count))
@@ -114,11 +132,15 @@ export default class StarwarsScreen extends Component {
   //   )
   // }
 
+  getImageFrom(images, name) {
+    return images[name] ? { uri: images[name] } : images.default
+  }
+
   render() {
     const { person, planet } = this.state
 
     return (
-      <Screen backgroundColor="#333333" align="center">
+      <Screen backgroundColor="#222222" align="center">
         <View style={[styles.section, styles.titleSection]}>
           <View style={styles.logo}>
             <Image
@@ -127,13 +149,36 @@ export default class StarwarsScreen extends Component {
             />
           </View>
         </View>
-        <View style={styles.section}>
+        <View style={[styles.section, styles.contentSection]}>
+          <View style={styles.imageRound}>
+            <Image
+              style={styles.imagePerson}
+              source={this.getImageFrom(StarwarsImages.person, person.name)}
+            />
+          </View>
           <Text style={styles.name}>{person.name}</Text>
           <Text style={styles.name}>{planet.name}</Text>
-          <TouchableOpacity onPress={this.onPress}>
-            <Text style={styles.button}>Touch Here</Text>
-          </TouchableOpacity>
-          <Text style={styles.button}>{this.state.count}</Text>
+          <View style={styles.buttons}>
+            <TouchableOpacity onPress={this.onPressDown} style={styles.button}>
+              <LinearGradient
+                style={styles.linearGradient}
+                colors={['#444444', '#444444', '#333333']}
+                locations={[0, 0.5, 1]}
+              >
+                <Text style={styles.textButton}>Down</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.onPressUp} style={styles.button}>
+              <LinearGradient
+                style={styles.linearGradient}
+                colors={['#444444', '#444444', '#333333']}
+                locations={[0, 0.5, 1]}
+              >
+                <Text style={styles.textButton}>Up</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.textButton}>{this.state.count}</Text>
         </View>
       </Screen>
     )
